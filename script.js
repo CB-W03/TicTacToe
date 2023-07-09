@@ -1,3 +1,18 @@
+/* 
+setup the game board 
+Computer should randomly choose box to put its choice inside
+have a function to choose which box in the grid
+use set timeout to wait before displaying comp choice
+use math.rand function to generate number from 0-9
+use options array to check if cell has been chosen
+use while to keep doing so until it is empty box in options array
+
+COMMIT FIRST WITHOUT THESE ADDITIONS^^^ THEN ADD CHANGES AND COMMIT AGAIN
+
+check if  current player is "O" if O, then shoud generate random number 
+checl if element in options array is empty, if empty then place O
+*/
+
 const cells = document.querySelectorAll(".cell");
 const statusText = document.querySelector("#statusText");
 const restartBtn = document.querySelector("#restartBtn");
@@ -38,6 +53,9 @@ function cellClicked(){
 
     updateCell(this, cellIndex);
     checkWinner();
+    if(running && currentPlayer == "O"){
+        compTurn();
+    }
 
 }
 
@@ -95,4 +113,18 @@ function restartGame(){
 
     running = true;
 
+}
+
+function compTurn(){
+
+    let compChoice = Math.round(Math.random() * 9);
+
+    while(options[compChoice] != ""){
+        compChoice = Math.round(Math.random() * 9);
+    }
+
+    compCell = document.querySelector(`div[cellIndex='${compChoice}']`);
+    updateCell(compCell, compChoice);
+
+    checkWinner();
 }
